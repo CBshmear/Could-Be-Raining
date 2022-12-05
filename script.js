@@ -20,7 +20,7 @@ var formSubmitHandler = function (event) {
   todaysForecast.textContent = "";
   displaySearched(cityName);
 };
-
+// displays searched cities in a list of buttons to be used again
 function displaySearched() {
   var searchedList = document.createElement("ul");
   var searchedListItem = document.createElement("button");
@@ -40,7 +40,7 @@ function displaySearched() {
     todaysForecast.textContent = "";
   });
 }
-
+//takes city name entered and fetches coordinates
 var getCords = function (cityName) {
   var apiUrl =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -58,7 +58,7 @@ var getCords = function (cityName) {
     }
   });
 };
-
+//takes coordinates and fetches weather data
 var getForecast = function (lat, lon) {
   var apiTwoUrl =
     "https://api.openweathermap.org/data/2.5/forecast?lat=" +
@@ -71,13 +71,13 @@ var getForecast = function (lat, lon) {
     if (response.ok) {
       response.json().then(function (data) {
         console.log(data);
-
+        //displays todays forecast to page
         var cityName = data.city.name;
-        var cityDate = data.list[3].dt_txt;
-        var weatherIcon = data.list[3].weather[0].icon;
-        var humidity = data.list[3].main.humidity;
-        var temp = data.list[3].main.temp;
-        var windSpeed = data.list[3].wind.speed;
+        var cityDate = data.list[1].dt_txt;
+        var weatherIcon = data.list[1].weather[0].icon;
+        var humidity = data.list[1].main.humidity;
+        var temp = data.list[1].main.temp;
+        var windSpeed = data.list[1].wind.speed;
 
         var cityEl = document.createElement("div");
         cityEl.textContent = cityName;
@@ -106,7 +106,7 @@ var getForecast = function (lat, lon) {
         var speedEl = document.createElement("div");
         speedEl.textContent = "Wind Speed: " + windSpeed;
         tempEl.appendChild(speedEl);
-
+        //displays 5 day forecast to page
         let dayNum = 1;
         for (var i = 0; i < data.list.length; i = i + 8) {
           var dayBox = document.getElementById("day" + dayNum);
@@ -150,5 +150,5 @@ var getForecast = function (lat, lon) {
     }
   });
 };
-
+//listens for click of submit button
 citySubmitBut.addEventListener("submit", formSubmitHandler);
