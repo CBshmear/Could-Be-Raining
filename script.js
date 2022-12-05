@@ -26,6 +26,7 @@ function displaySearched() {
   var searchedListItem = document.createElement("button");
   var storedCity = localStorage.getItem("city");
   searchedListItem.setAttribute("data-city", storedCity);
+  searchedListItem.setAttribute("style", "margin: 2px;");
   searchedListItem.textContent = storedCity;
   searchedEl.appendChild(searchedList);
   searchedList.appendChild(searchedListItem);
