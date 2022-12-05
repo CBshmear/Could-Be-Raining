@@ -1,0 +1,22 @@
+header {   
+    background-image: linear-gradient(to right, rgb(134, 134, 236), rgb(227, 221, 221));
+    text-align: center;
+    color:rgb(255, 255, 255);
+    height: 100px;
+    border-top: solid black 3px;
+    border-bottom: solid black 3px;
+    margin-bottom: 10px;  
+}
+
+body {
+    background-image: linear-gradient(to right, rgb(134, 134, 236), rgb(227, 221, 221));
+}
+
+#city-input {
+    border: solid 2px;
+}
+
+.container {
+    margin-right: 10px;
+    margin-top: 50px;
+}
