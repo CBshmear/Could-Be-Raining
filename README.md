@@ -1,6 +1,7 @@
 # Could-Be-Raining
 
 ## Description
+I wanted to be able to access weather data by the name of a given city, anywhere in the world. Now I am able to do just that! When I enter the name of a city, I am given the current forecast as well as the future-cast for the following five days. Thoughtout the development of this webpage I have learned alot about working with server-side API's. Not only working with the API, but also working with the data it provides me. How to access the data I want and how to add that data to the page as I see fit.
 
 ## Link to deployed page
 https://cbshmear.github.io/Could-Be-Raining/ 
