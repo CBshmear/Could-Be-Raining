@@ -53,46 +53,45 @@ var getCords = function (cityName) {
         console.log(data);
         var citLat = data[0].lat;
         var citLon = data[0].lon;
+        getCurrentWeather(citLat, citLon);
         getForecast(citLat, citLon);
       });
     }
   });
 };
-//takes coordinates and fetches weather data
-var getForecast = function (lat, lon) {
-  var apiTwoUrl =
-    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
-    lat +
-    "&lon=" +
-    lon +
-    "&units=imperial&appid=620f19671ee57177ce7da59e3ed460e7";
 
-  fetch(apiTwoUrl).then(function (response) {
+//takes coordinates and fetches weather data for today
+var getCurrentWeather = function (lat, lon) {
+  fetch(
+    "https://api.openweathermap.org/data/2.5/weather?lat=" +
+      lat +
+      "&lon=" +
+      lon +
+      "&units=imperial&appid=620f19671ee57177ce7da59e3ed460e7"
+  ).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
         console.log(data);
-        //displays todays forecast to page
-        var cityName = data.city.name;
-        var cityDate = data.list[1].dt_txt;
-        var weatherIcon = data.list[1].weather[0].icon;
-        var humidity = data.list[1].main.humidity;
-        var temp = data.list[1].main.temp;
-        var windSpeed = data.list[1].wind.speed;
+
+        var cityName = data.name;
+
+        var weatherIcon = data.weather[0].icon;
+        var humidity = data.main.humidity;
+        var temp = data.main.temp;
+        var windSpeed = data.wind.speed;
 
         var cityEl = document.createElement("div");
         cityEl.textContent = cityName;
         todaysForecast.appendChild(cityEl);
-        var dateEl = document.createElement("div");
-        dateEl.textContent = "Date: " + cityDate;
-        cityEl.appendChild(dateEl);
 
         var weatherEl = document.createElement("div");
+        cityEl.appendChild(weatherEl);
         var iconImage = document.createElement("img");
         iconImage.setAttribute(
           "src",
           "http://openweathermap.org/img/wn/" + weatherIcon + "@2x.png"
         );
-        dateEl.appendChild(weatherEl);
+
         weatherEl.appendChild(iconImage);
 
         var humidityEl = document.createElement("div");
@@ -106,7 +105,22 @@ var getForecast = function (lat, lon) {
         var speedEl = document.createElement("div");
         speedEl.textContent = "Wind Speed: " + windSpeed;
         tempEl.appendChild(speedEl);
-        //displays 5 day forecast to page
+      });
+    }
+  });
+};
+//displays 5 day forecast to page
+var getForecast = function (lat, lon) {
+  var apiTwoUrl =
+    "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&units=imperial&appid=620f19671ee57177ce7da59e3ed460e7";
+
+  fetch(apiTwoUrl).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
         let dayNum = 1;
         for (var i = 0; i < data.list.length; i = i + 8) {
           var dayBox = document.getElementById("day" + dayNum);
